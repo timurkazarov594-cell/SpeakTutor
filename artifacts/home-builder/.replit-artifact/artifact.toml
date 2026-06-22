@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/home-builder/"
+title = "3D Home Builder"
+version = "1.0.0"
+id = "artifacts/home-builder"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/home-builder/" ]
+localPort = 20410
+
+[services.development]
+run = "pnpm --filter @workspace/home-builder run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/home-builder", "run", "build" ]
+publicDir = "artifacts/home-builder/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20410"
+BASE_PATH = "/home-builder/"

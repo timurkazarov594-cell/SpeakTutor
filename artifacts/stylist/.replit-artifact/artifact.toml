@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/stylist/"
+title = "AI Fashion Stylist"
+version = "1.0.0"
+id = "artifacts/stylist"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/stylist/" ]
+localPort = 24611
+
+[services.development]
+run = "pnpm --filter @workspace/stylist run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/stylist", "run", "build" ]
+publicDir = "artifacts/stylist/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24611"
+BASE_PATH = "/stylist/"
